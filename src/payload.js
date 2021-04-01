@@ -49,7 +49,7 @@ export function signPayload(msg, secret_key) {
   // console.log("signing", `0x${msg.toString('hex')}`, `0x${secret_key}`)
 
   const hash = web3.utils.keccak256(`0x${msg.toString('hex')}`);
-  const signed = web3.eth.accounts.sign(hash, `0x${secret_key}`)
+  const signed = web3.eth.accounts.sign(hash, `0x${secret_key.slice(0, 64)}`)  // remove compression byte
 
   const r_buffer = Buffer.from(signed.r.slice(2), 'hex')
   const s_buffer = Buffer.from(signed.s.slice(2), 'hex')
