@@ -3,6 +3,8 @@ import fs from "fs"
 import fetch from 'node-fetch'
 import {
   stringAsciiCV,
+  listCV,
+  tupleCV,
 
   broadcastTransaction,
   makeContractCall,
@@ -30,8 +32,16 @@ const network = MODE === 'mainnet' ? new StacksMainnet() : MODE === 'testnet' ? 
 network.coreApiUrl = STACKS_API_URL  // Is this needed except in case of custom node?
 
 
+function buildPrice(price) {
+  return `{src: "${price.src}", msg: 0x${price.msg.toString('hex')}, sig: 0x${price.sig.toString('hex')}}`
+}
 
-async function createPair(token_1, token_2, token_1_2, name, amount_1, amount_2) {
+function buildPriceList(prices) {
+  return `(list ${prices.map(price => buildPrice(price)).join(' ')})`
+}
+
+
+async function addPrices(token_1, token_2, token_1_2, name, amount_1, amount_2) {
   console.log("createPair", token_1, token_2, token_1_2, name, amount_1, amount_2)
   const fee = new BigNum(311)
   const addr = 'ST3J2GVMMM2R07ZFBJDWTYEYAR8FZH5WKDTFJ9AHA'
@@ -93,16 +103,5 @@ async function processing(tx, count = 0): Promise<boolean> {
 }
 
 (async () => {
-  const flexr_token = 'flexr-token'
-  const stx_token = 'stx-token'
-  const plaid_token = 'plaid-token'
-  const flexr_stx_token = 'flexr-stx-token'
-  const plaid_stx_token = 'plaid-stx-token'
-
-  // create flexr-stx pair
-  await createPair(flexr_token, stx_token, flexr_stx_token, "flexr-stx", 50_000_000_000_000, 50_000_000_000_000)
-
-  // create plaid-stx pair
-  await createPair(plaid_token, stx_token, plaid_stx_token, "plaid-stx", 50_000_000_000_000, 50_000_000_000_000)
 
 })()
