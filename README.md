@@ -52,7 +52,7 @@ Call `get-price`, for example:
 Add your own feed (ping @psq on discord and I can add your source public key), or you can fork this repo and deploy your own contract (make sure you change the owner key)
 
 ## Deployment
-The first version of the contract is deployed on mainnet at SPZ0RAC1EFTH949T4W2SYY6YBHJRMAF4ECT5A7DD.oracle-v1
+The first version of the contract is deployed on mainnet at `SPZ0RAC1EFTH949T4W2SYY6YBHJRMAF4ECT5A7DD.oracle-v1`
 
 Deploying this early so I can figure out what it takes to reliably upload prices, hopefully every blocks, and hopefully the transactions won't be too big for miners to process...
 
