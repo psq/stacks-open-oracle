@@ -34,14 +34,14 @@ A feed pulled from OKCoin, and signed by one of my keys
 
 Pairs: BTC, ETH, LINK, STX-BTC, STX, COMP, LTC, UNI
 
-Public key: `0x03743bf7b397e38eb2474f8a9554471c9394ef23cc8f927351f3a6d882cbbe7a12`  (TODO(psq): change to deployment address)
+Public key: `0x02752f4db204f7cdf6e022dc486af2572579bc9a0fe7c769b58d95f42234269367`
 
 ### ArtifiX Binance feed
 A feed pulled from Binance, and signed by one of my keys
 
 Pairs: ETH-BTC, LINK-BTC, LINK-ETH, STX-BTC, STX-USDT, COMP-BTC, LTC-BTC, UNI-BTC, AAVE-BTC, SUSHI-BTC
 
-Public key: `0x03743bf7b397e38eb2474f8a9554471c9394ef23cc8f927351f3a6d882cbbe7a12`  (TODO(psq): change to deployment address)
+Public key: `0x02752f4db204f7cdf6e022dc486af2572579bc9a0fe7c769b58d95f42234269367`
 
 ## Retrieving prices
 Call `get-price`, for example:
