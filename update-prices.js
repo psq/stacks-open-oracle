@@ -1,58 +1,34 @@
-const BigNum = require("bn.js")
-import * as fs from "fs"
-const fetch = require("node-fetch")
+import BigNum from 'bn.js'
+import fs from "fs"
+import fetch from 'node-fetch'
 import {
-  StacksTestnet,
-  StacksMainnet,
-
-  contractPrincipalCV,
   stringAsciiCV,
-  uintCV,
 
   broadcastTransaction,
   makeContractCall,
   makeContractDeploy,
-  TxBroadcastResultOk,
-  TxBroadcastResultRejected,
 
   PostConditionMode,
 } from "@stacks/transactions"
 
-import { STACKS_API_URL } from './src/config.js'
+import {
+  StacksMainnet,
+  StacksTestnet,
+  StacksMocknet,
+} from '@stacks/network'
 
+import {
+  MODE,
+  ORACLE_SK,
+  STACKS_API_URL,
+} from './src/config.js'
 
-const network = new StacksTestnet()
-network.coreApiUrl = STACKS_API_URL
+console.log("mode", MODE)
+console.log("api", STACKS_API_URL)
 
+const network = MODE === 'mainnet' ? new StacksMainnet() : MODE === 'testnet' ? new StacksTestnet() : new StacksMocknet()
+network.coreApiUrl = STACKS_API_URL  // Is this needed except in case of custom node?
 
-async function deployContract(contract_name, fee) {
-  console.log(`deploying ${contract_name}`)
-  const codeBody = fs.readFileSync(`./contracts/${contract_name}.clar`).toString()
-
-  const transaction = await makeContractDeploy({
-    contractName: contract_name,
-    codeBody,
-    senderKey: keys.swapr.privateKey,
-    network,
-  })
-
-  const result = await broadcastTransaction(transaction, network)
-  if ((result as TxBroadcastResultRejected).error) {
-    if ((result as TxBroadcastResultRejected).reason === "ContractAlreadyExists") {
-      console.log(`${contract_name} already deployed`)
-      return "" as TxBroadcastResultOk
-    } else {
-      throw new Error(
-        `failed to deploy ${contract_name}: ${JSON.stringify(result)}`
-      )
-    }
-  }
-  const processed = await processing(result as TxBroadcastResultOk)
-  if (!processed) {
-    throw new Error(`failed to deploy ${contract_name}: transaction not found`)
-  }
-  return result as TxBroadcastResultOk
-}
 
 
 async function createPair(token_1, token_2, token_1_2, name, amount_1, amount_2) {
