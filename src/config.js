@@ -13,3 +13,4 @@ export const MAINNET = process.env.MAINNET
 
 export const ORACLE_SK = process.env.ORACLE_SK
 export const ORACLE_PK = process.env.ORACLE_PK
+export const ORACLE_STX = process.env.ORACLE_STX

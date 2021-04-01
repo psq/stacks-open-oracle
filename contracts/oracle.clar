@@ -207,6 +207,6 @@
 ;; need compressed version of public keys
 (map-set sources {source: "coinbase"} {public-key: 0x034170a2083dccbc2be253885a8d0e9f7ce859eb370d0c5cae3b6994af4cb9d666})  ;; Eth: 0xfCEAdAFab14d46e20144F48824d0C09B1a03F2BC
 (map-set sources {source: "okcoin"} {public-key: 0x0325df290b8c4930adcf8cd5c883616a1204ccc3d6ba3c4a636d6bcecd08e466d3})  ;; Eth: 0x419c555b739212684432050b7ce459ea8e7b8bda
-(map-set sources {source: "artifix-okcoin"} {public-key: 0x03743bf7b397e38eb2474f8a9554471c9394ef23cc8f927351f3a6d882cbbe7a12})  ;; stx: SPSQ777A2Z2WXFND2PQ9RBTJKV2Y2F6SJS8V12JQ
-(map-set sources {source: "artifix-binance"} {public-key: 0x03743bf7b397e38eb2474f8a9554471c9394ef23cc8f927351f3a6d882cbbe7a12})  ;; stx: SPSQ777A2Z2WXFND2PQ9RBTJKV2Y2F6SJS8V12JQ
+(map-set sources {source: "artifix-okcoin"} {public-key: 0x02752f4db204f7cdf6e022dc486af2572579bc9a0fe7c769b58d95f42234269367})  ;; stx: SPZ0RAC1EFTH949T4W2SYY6YBHJRMAF4ECT5A7DD
+(map-set sources {source: "artifix-binance"} {public-key: 0x02752f4db204f7cdf6e022dc486af2572579bc9a0fe7c769b58d95f42234269367})  ;; stx: SPZ0RAC1EFTH949T4W2SYY6YBHJRMAF4ECT5A7DD
 
