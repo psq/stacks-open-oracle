@@ -78,3 +78,6 @@ async function processing(tx, count): {
 (async () => {
   await deployContract('oracle')
 })()
+
+
+// TODO(psq): replace owner 'SZ2J6ZY48GV1EZ5V2V5RB9MP66SW86PYKKQ9H6DPR with ORACLE_PK (search and replace before deploying)

@@ -7,7 +7,7 @@ const binance = new Binance().options()
 // }
 
 import { buildPayload, signPayload } from '../payload.js'
-import { ARTIFIX_SECRET } from '../config.js'
+import { ORACLE_SK } from '../config.js'
 
 
 export async function retrieveBinanceFeed() {
@@ -66,7 +66,7 @@ export async function retrieveBinanceFeed() {
     console.log(`${filter[key].symbol} ${parseFloat(ticker[key])} ${parseFloat(ticker[key]) * filter[key].decimals}`)
     const msg = buildPayload(timestamp, filter[key].symbol, Math.floor(parseFloat(ticker[key]) * filter[key].decimals))
     console.log("msg", msg.toString('hex'))
-    const sig = signPayload(msg, ARTIFIX_SECRET)
+    const sig = signPayload(msg, ORACLE_SK)
     console.log("sig_binance", sig.toString('hex'))
     feed.push({src, msg, sig})
   }
