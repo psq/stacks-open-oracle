@@ -113,6 +113,7 @@
   )
 )
 
+;; this one liner took 3-4 whole days to get right... you are welcome!
 (define-read-only (verify-signature (msg (buff 256)) (signature (buff 65)) (public-key (buff 33)))
   (is-eq (unwrap-panic (secp256k1-recover? (keccak256 (concat eth-preamble (keccak256 msg))) signature)) public-key)
 )
