@@ -1,5 +1,9 @@
 [
   {
+    "principal": "ST31HHVBKYCYQQJ5AQ25ZHA6W2A548ZADDQ6S16GP",
+    "amount": 200000000000000
+  },
+  {
     "principal": "ST3J2GVMMM2R07ZFBJDWTYEYAR8FZH5WKDTFJ9AHA",
     "amount": 200000000000000
   },
@@ -26,5 +30,5 @@
   {
     "principal": "ST3J2GVMMM2R07ZFBJDWTYEYAR8FZH5WKDTFJ9AHA.names",
     "amount": 2000
-  } 
+  }
 ]

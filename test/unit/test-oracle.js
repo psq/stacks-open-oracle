@@ -31,23 +31,11 @@ describe("full test suite", () => {
   let provider
   let oracleClient
 
-  const addresses = [
-    'SP2J6ZY48GV1EZ5V2V5RB9MP66SW86PYKKNRV9EJ7',  // alice, u20 tokens of each
-    'S02J6ZY48GV1EZ5V2V5RB9MP66SW86PYKKPVKG2CE',  // bob, u10 tokens of each
-    'SZ2J6ZY48GV1EZ5V2V5RB9MP66SW86PYKKQ9H6DPR',  // zoe, no tokens
-    'SP138CBPVKYBQQ480EZXJQK89HCHY32XBQ0T4BCCD',  // TBD
-    'SP30JX68J79SMTTN0D2KXQAJBFVYY56BZJEYS3X0B',  // flexr treasury
-  ]
-
-  const alice = addresses[0]
-  const bob = addresses[1]
-  const zoe = addresses[2]
-  const flexr_treasury = `${addresses[4]}`
-  const flexr_token = `ST3J2GVMMM2R07ZFBJDWTYEYAR8FZH5WKDTFJ9AHA.flexr-token`
-  const flexr_stx_token = `ST3J2GVMMM2R07ZFBJDWTYEYAR8FZH5WKDTFJ9AHA.flexr-stx-token`
-  const stx_token = `ST3J2GVMMM2R07ZFBJDWTYEYAR8FZH5WKDTFJ9AHA.stx-token`
+  const bob = 'SZ2J6ZY48GV1EZ5V2V5RB9MP66SW86PYKKQ9H6DPR'
+  const zoe = 'ST31HHVBKYCYQQJ5AQ25ZHA6W2A548ZADDQ6S16GP'
 
   const public_key1 = Buffer.from('0208c2e3d1cadc11ae62c5a66131a45cf43d10979dfdee99195bcf401498ecf230', 'hex')
+  const public_key2 = Buffer.from('0367b2946150dfab1862457da80beb522440be5737ea51ba14cf8018a12911128f', 'hex')
 
   before(async () => {
     ProviderRegistry.registerProvider(
@@ -65,7 +53,7 @@ describe("full test suite", () => {
     })
   })
 
-  describe("Full scenario", () => {
+  describe("check main functions", () => {
     before(async function() {
       // await oracleClient.verify()
       // await oracleClient.extractTimestamp()
@@ -79,7 +67,7 @@ describe("full test suite", () => {
 
       // should fail
       try {
-        await oracleClient.addSource('source1', public_key1, {sender: bob})
+        await oracleClient.addSource('source2', public_key2, {sender: bob})
       } catch(e) {
         // console.log(e, typeof e, e instanceof Object, e instanceof NotOwnerError)
         if (e instanceof NotOwnerError) {
@@ -91,7 +79,7 @@ describe("full test suite", () => {
 
       // should fail
       try {
-        await oracleClient.revokeSource('source1', {sender: bob})
+        await oracleClient.revokeSource('source2', {sender: bob})
       } catch(e) {
         if (e instanceof NotOwnerError) {
           assert(true)
@@ -190,7 +178,7 @@ describe("full test suite", () => {
 
     })
 
-    it("check balances after running scenario", async () => {
+    it("needs a test", async () => {
       // all tests are done in the before hook, but need a test to trigger it
     })
 

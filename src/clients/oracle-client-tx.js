@@ -30,6 +30,7 @@ import {
 import {
   CONTRACT_NAME,
   MODE,
+  ORACLE_PK,
   ORACLE_SK,
   ORACLE_STX,
   STACKS_API_URL,
@@ -42,12 +43,15 @@ console.log("mode", MODE)
 console.log("api", STACKS_API_URL)
 
 export async function deployContract(contract_file) {
-  console.log(`deploying ${contract_name}`)
+  console.log(`deploying ${CONTRACT_NAME}`, ORACLE_PK, ORACLE_STX)
   const body = fs.readFileSync(`./contracts/${contract_file}.clar`).toString()
   const codeBody = body
-    .replaceAll('SZ2J6ZY48GV1EZ5V2V5RB9MP66SW86PYKKQ9H6DPR', ORACLE_STX)
     .replaceAll('0367b2946150dfab1862457da80beb522440be5737ea51ba14cf8018a12911128f', ORACLE_PK)
     .replaceAll('ST31HHVBKYCYQQJ5AQ25ZHA6W2A548ZADDQ6S16GP', ORACLE_STX)
+
+  console.log("codeBody", codeBody)
+  process.exit()
+
 
   const transaction = await makeContractDeploy({
     contractName: CONTRACT_NAME,
