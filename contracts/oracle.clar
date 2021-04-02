@@ -204,6 +204,11 @@
     err-not-owner
   )
 )
+
+(define-read-only (check-source (source (string-ascii 16)))
+  (map-get? sources { source: source})
+)
+
 ;; preseed with trusted sources
 ;; need compressed version of public keys
 (map-set sources {source: "coinbase"} {public-key: 0x034170a2083dccbc2be253885a8d0e9f7ce859eb370d0c5cae3b6994af4cb9d666})  ;; Eth: 0xfCEAdAFab14d46e20144F48824d0C09B1a03F2BC
