@@ -65,6 +65,16 @@ The first version of the contract is deployed on mainnet at `SPZ0RAC1EFTH949T4W2
 
 Deploying this early so I can figure out what it takes to reliably upload prices, hopefully every blocks, and hopefully the transactions won't be too big for miners to process...
 
+## Future
+Don't let the inital set of values limit your thinking, a symbol/value pair does not have a be a crypto currency, it could be a stock, a temperature, a forecast, or anything that could be reduced to a 128 bits number (yes, you could even twist it to store a 16 charaters string, or even a buffer, no processing is done as long as it can be represented as a uint)
+
+I would hope more people will participate and upload their own feeds, and we can then build a second layer on top of this basic oracle to get something more distributed and more resilient like Chainlink.  I would think we can trust the open oracle feeds from Coinbase and OKCoin, and hopefully you'll trust mine.
+
+Will probably add a CoinGecko feed next with STX, STX-BTC, CoinMarketCap does not seem worth the expense (unless scraping...)
+
+Suggestions welcome!
+
+If you'd like to contribute, open a PR, and small STX donations are welcome to `SPZ0RAC1EFTH949T4W2SYY6YBHJRMAF4ECT5A7DD` to help pay for keeping the feed alive (unless I figure out a way to use microblocks, at the current block frequency, it will cost less than 1 STX per day, at least I think)
 
 ## Credits
 Extra credits to @jcnelson for sharing an approach to manipulate buffers (https://gist.github.com/jcnelson/76c44b4209c29a19d2dbc06a0e7b446e)

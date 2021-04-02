@@ -14,6 +14,7 @@ import {
 
   broadcastTransaction,
   makeContractCall,
+  makeContractDeploy,
 
   PostConditionMode,
 } from "@stacks/transactions"
@@ -48,10 +49,6 @@ export async function deployContract(contract_file) {
   const codeBody = body
     .replaceAll('0367b2946150dfab1862457da80beb522440be5737ea51ba14cf8018a12911128f', ORACLE_PK)
     .replaceAll('ST31HHVBKYCYQQJ5AQ25ZHA6W2A548ZADDQ6S16GP', ORACLE_STX)
-
-  console.log("codeBody", codeBody)
-  process.exit()
-
 
   const transaction = await makeContractDeploy({
     contractName: CONTRACT_NAME,
