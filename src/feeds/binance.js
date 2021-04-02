@@ -63,11 +63,11 @@ export async function retrieveBinanceFeed() {
   const keys = Object.keys(filter)
 
   for (let key of keys) {
-    console.log(`${filter[key].symbol} ${parseFloat(ticker[key])} ${parseFloat(ticker[key]) * filter[key].decimals}`)
+    // console.log(`${filter[key].symbol} ${parseFloat(ticker[key])} ${parseFloat(ticker[key]) * filter[key].decimals}`)
     const msg = buildPayload(timestamp, filter[key].symbol, Math.floor(parseFloat(ticker[key]) * filter[key].decimals))
-    console.log("msg", msg.toString('hex'))
+    // console.log("msg", msg.toString('hex'))
     const sig = signPayload(msg, ORACLE_SK)
-    console.log("sig_binance", sig.toString('hex'))
+    // console.log("sig_binance", sig.toString('hex'))
     feed.push({src, msg, sig})
   }
 

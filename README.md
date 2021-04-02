@@ -6,7 +6,7 @@ While waiting for a more distributed solution (Where are you Chainlink?), this p
 When calling addPrices, the contract will verify that the signature matches the public key for that source, so prices can be retrieved very quickly.  Anyone can call addPrices, but the source and public key should verify, and the timestamp needs to be later than the existing value
 
 
-When a pair has one symbol, the price is against USD, otherwise, againt the second symbol (for example, Binance does not have USD pairs, only USDT or other stable coins)
+When a pair has one symbol, the price is against USD, otherwise, againt the second symbol (for example, Binance does not have USD pairs, only USDT or other stable coins).  So for example `STX` is the STX price in USD, while `STX-BTC` is the price of STX in BTC (adjusted for the relevant number of decimals, 6 by default, 8 for BTC, and lots for ETH (ok, 18)).
 
 
 ## Feeds
@@ -14,7 +14,9 @@ When a pair has one symbol, the price is against USD, otherwise, againt the seco
 ### Coinbase open oracle feed
 doc at: https://docs.pro.coinbase.com/#oracle, api key required, sadly
 
-Pairs: BTC, ETH, LINK, COMP, UNI, SNX
+Source: "coinbase"
+
+Symbols: BTC, ETH, LINK, COMP, UNI, SNX
 
 Eth address: `0xfCEAdAFab14d46e20144F48824d0C09B1a03F2BC`
 
@@ -23,7 +25,9 @@ Compressed public key usable in Clarity: `0x034170a2083dccbc2be253885a8d0e9f7ce8
 ### OKCoin open oracle feed
 A feed provided at https://www.okcoin.com/api/market/v3/oracle
 
-Pairs: BTC, ETH
+Source: "okcoin"
+
+Symbols: BTC, ETH
 
 Eth address: `0x419c555b739212684432050b7ce459ea8e7b8bda`
 
@@ -32,24 +36,29 @@ Compressed public key usable in Clarity: `0x0325df290b8c4930adcf8cd5c883616a1204
 ### ArtifiX OKCoin feed
 A feed pulled from OKCoin, and signed by one of my keys
 
-Pairs: BTC, ETH, LINK, STX-BTC, STX, COMP, LTC, UNI
+Source: "artifix-okcoin"
+
+Symbols: BTC, ETH, LINK, STX-BTC, STX, COMP, LTC, UNI
 
 Public key: `0x02752f4db204f7cdf6e022dc486af2572579bc9a0fe7c769b58d95f42234269367`
 
 ### ArtifiX Binance feed
 A feed pulled from Binance, and signed by one of my keys
 
-Pairs: ETH-BTC, LINK-BTC, LINK-ETH, STX-BTC, STX-USDT, COMP-BTC, LTC-BTC, UNI-BTC, AAVE-BTC, SUSHI-BTC
+Source: "artifix-binance"
+
+Symbols: ETH-BTC, LINK-BTC, LINK-ETH, STX-BTC, STX-USDT, COMP-BTC, LTC-BTC, UNI-BTC, AAVE-BTC, SUSHI-BTC
 
 Public key: `0x02752f4db204f7cdf6e022dc486af2572579bc9a0fe7c769b58d95f42234269367`
 
 ## Retrieving prices
-Call `get-price`, for example:
+Call `get-price` with `source` and `symbol`, for example:
 ```
 (get-price "coinbase" "BTC")
 ```
+to get the latest price for BTC (in USD) from the Coinbase feed
 
-Add your own feed (ping @psq on discord and I can add your source public key), or you can fork this repo and deploy your own contract (make sure you change the owner key)
+Add your own feed (ping @psq on discord and I can add your source public key, or create an issue on this repo), or you can fork this repo and deploy your own contract (make sure you change the owner key)
 
 ## Deployment
 The first version of the contract is deployed on mainnet at `SPZ0RAC1EFTH949T4W2SYY6YBHJRMAF4ECT5A7DD.oracle-v1`

@@ -31,7 +31,6 @@ export class OracleClient extends Client {
     )
   }
 
-
   async addPrices(prices, params) {
     console.log("addPrices", buildPriceList(prices))
     const tx = this.createTransaction({
@@ -46,7 +45,6 @@ export class OracleClient extends Client {
       return result.startsWith('Transaction executed and committed. Returned: true')
     }
     console.log("addPrice.receipts", receipt)
-    // throw new TransferError()
   }
 
   async addPrice(source, msg, signature, params) {
@@ -63,7 +61,6 @@ export class OracleClient extends Client {
       return result.startsWith('Transaction executed and committed. Returned: true')
     }
     console.log("addPrice.receipt", receipt)
-    // throw new TransferError()
   }
 
   async addSource(source, public_key, params) {
@@ -114,6 +111,4 @@ export class OracleClient extends Client {
     const receipt = await this.submitQuery(query)
     return Result.unwrap(receipt)
   }
-
-
 }

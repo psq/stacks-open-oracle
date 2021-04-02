@@ -2,13 +2,13 @@ import BigNum from 'bn.js'
 import fs from "fs"
 import fetch from 'node-fetch'
 import {
-  stringAsciiCV,
+  bufferCV,
   listCV,
   tupleCV,
+  stringAsciiCV,
 
   broadcastTransaction,
   makeContractCall,
-  makeContractDeploy,
 
   PostConditionMode,
 } from "@stacks/transactions"
@@ -22,8 +22,14 @@ import {
 import {
   MODE,
   ORACLE_SK,
+  ORACLE_STX,
   STACKS_API_URL,
 } from './src/config.js'
+
+import { retrieveCoinbaseOracleFeed } from './src/feeds/coinbase-oracle.js'
+import { retrieveOKCoinOracleFeed } from './src/feeds/okcoin-oracle.js'
+import { retrieveBinanceFeed } from './src/feeds/binance.js'
+import { retrieveOKCoinFeed } from './src/feeds/okcoin.js'
 
 console.log("mode", MODE)
 console.log("api", STACKS_API_URL)
@@ -31,69 +37,66 @@ console.log("api", STACKS_API_URL)
 const network = MODE === 'mainnet' ? new StacksMainnet() : MODE === 'testnet' ? new StacksTestnet() : new StacksMocknet()
 network.coreApiUrl = STACKS_API_URL  // Is this needed except in case of custom node?
 
-
 function buildPrice(price) {
-  return `{src: "${price.src}", msg: 0x${price.msg.toString('hex')}, sig: 0x${price.sig.toString('hex')}}`
+  return tupleCV({
+    src: stringAsciiCV(price.src),
+    msg: bufferCV(price.msg),
+    sig: bufferCV(price.sig),
+  })
 }
 
 function buildPriceList(prices) {
-  return `(list ${prices.map(price => buildPrice(price)).join(' ')})`
+  return listCV(prices.map(price => buildPrice(price)))
 }
 
-
-async function addPrices(token_1, token_2, token_1_2, name, amount_1, amount_2) {
-  console.log("createPair", token_1, token_2, token_1_2, name, amount_1, amount_2)
-  const fee = new BigNum(311)
-  const addr = 'ST3J2GVMMM2R07ZFBJDWTYEYAR8FZH5WKDTFJ9AHA'
+async function addPrices(contract_name, prices) {
+  console.log("addPrices", contract_name /*, prices*/)
   const transaction = await makeContractCall({
-    contractAddress: addr,
-    contractName: 'swapr',
-    functionName: 'create-pair',
-    functionArgs: [contractPrincipalCV(addr, token_1), contractPrincipalCV(addr, token_2), contractPrincipalCV(addr, token_1_2), stringAsciiCV(name), uintCV(amount_1), uintCV(amount_2)],
-    senderKey: keys.swapr.privateKey,
+    contractAddress: ORACLE_STX,
+    contractName: contract_name,
+    functionName: 'add-prices',
+    functionArgs: [buildPriceList(prices)],
+    senderKey: ORACLE_SK,
     network,
     postConditionMode: PostConditionMode.Allow,
     postConditions: [
     ],
-    fee,
   })
-  console.log("transaction", transaction.payload)
+  // console.log("transaction", transaction.payload)
   const serialized = transaction.serialize().toString('hex')
-  console.log("serialized", serialized)
+  console.log("serialized", serialized, serialized.length)
+
   const result = await broadcastTransaction(transaction, network)
   console.log("result", result)
-  if ((result as TxBroadcastResultRejected).error) {
-    console.log((result as TxBroadcastResultRejected).reason)
-    throw new Error(`failed create pair ${token_1} - ${token_2}`)
+  if (result.error) {
+    console.log(result.reason)
+    throw new Error(`transaction failed`)
   }
-  const processed = await processing(result as TxBroadcastResultOk)
+  const processed = await processing(result, 0)
   if (!processed) {
-    throw new Error(`failed to execute create-pair`)
+    throw new Error(`failed to execute add-prices`)
   }
 }
-
-
 
 function timeout(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms))
 }
 
-async function processing(tx, count = 0): Promise<boolean> {
-  console.log("processing", tx)
+async function processing(tx, count = 0) {
+  console.log("processing", tx, count)
   var result = await fetch(
     `${STACKS_API_URL}/extended/v1/tx/${tx}`
   )
   var value = await result.json()
-  console.log(count)
   if (value.tx_status === "success") {
     console.log(`transaction ${tx} processed`)
     // console.log(value)
     return true
   }
-  if (value.tx_status === "pending") {
-    console.log("pending" /*, value*/)
-  }
-  if (count > 2) {
+  // if (value.tx_status === "pending") {
+  //   console.log("pending" /*, value*/)
+  // }
+  if (count > 10) {
     console.log("failed after 2 attempts", value)
     return false
   }
@@ -103,5 +106,12 @@ async function processing(tx, count = 0): Promise<boolean> {
 }
 
 (async () => {
+  const coinbase_oracle_feed = await retrieveCoinbaseOracleFeed()
+  const okcoin_oracle_feed = await retrieveOKCoinOracleFeed()
+  const binance_feed = await retrieveBinanceFeed()
+  const okcoin_feed = await retrieveOKCoinFeed()
 
+  const feed = coinbase_oracle_feed.concat(okcoin_oracle_feed.concat(binance_feed.concat(okcoin_feed)))
+
+  addPrices('oracle-v0-0-2', feed)
 })()
