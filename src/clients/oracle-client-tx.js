@@ -87,7 +87,7 @@ function buildPriceList(prices) {
   return listCV(prices.map(price => buildPrice(price)))
 }
 
-export async function addPrices(prices) {
+export async function addPrices(prices, options) {
   // console.log("addPrices", contract_name /*, prices*/)
   const transaction = await makeContractCall({
     contractAddress: ORACLE_STX,
@@ -99,6 +99,7 @@ export async function addPrices(prices) {
     // helpful to recover botched tx, overbig...
     // nonce: new BigNum(1),
     // fee: new BigNum(20000),
+    nonce: options.nonce ? new BigNum(options.nonce) : undefined,
     postConditionMode: PostConditionMode.Allow,
     postConditions: [
     ],

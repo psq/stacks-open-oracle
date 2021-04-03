@@ -36,6 +36,6 @@ export async function getNonce() {
     `${STACKS_API_URL}/v2/accounts/${ORACLE_STX}?proof=0`
   )
   const value = await result.json()
-  console.log("value", value)
-
+  // console.log("value", value)
+  return value.nonce
 }
