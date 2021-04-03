@@ -1,4 +1,7 @@
 import {
+  processing,
+} from './src/tx-utils.js'
+import {
   addPrices,
 } from './src/clients/oracle-client-tx.js'
 
@@ -14,4 +17,11 @@ const okcoin_feed = await retrieveOKCoinFeed()
 
 const feed = coinbase_oracle_feed.concat(okcoin_oracle_feed.concat(binance_feed.concat(okcoin_feed)))
 
-await addPrices(feed)
+console.log("feed", feed.length)
+const result = await addPrices(feed)
+
+const processed = await processing(result, 0, 25)
+if (!processed) {
+  console.log(`failed to execute addPrices after over 12 minutes`)
+}
+

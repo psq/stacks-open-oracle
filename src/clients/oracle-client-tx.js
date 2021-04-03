@@ -68,7 +68,7 @@ export async function deployContract(contract_file) {
       )
     }
   }
-  const processed = await processing(result, 0)
+  const processed = await processing(result, 0, 25)
   if (!processed) {
     throw new Error(`failed to deploy ${CONTRACT_NAME}: transaction not found`)
   }
@@ -96,6 +96,9 @@ export async function addPrices(prices) {
     functionArgs: [buildPriceList(prices)],
     senderKey: ORACLE_SK,
     network,
+    // helpful to recover botched tx, overbig...
+    // nonce: new BigNum(1),
+    // fee: new BigNum(20000),
     postConditionMode: PostConditionMode.Allow,
     postConditions: [
     ],
@@ -110,10 +113,7 @@ export async function addPrices(prices) {
     console.log(result.reason)
     throw new Error(`transaction failed`)
   }
-  const processed = await processing(result, 0)
-  if (!processed) {
-    throw new Error(`failed to execute add-prices`)
-  }
+  return result
 }
 
 export async function getPrice(source, symbol) {
@@ -180,7 +180,7 @@ export async function addSource(source, key) {
     console.log(result.reason)
     throw new Error(`transaction failed`)
   }
-  const processed = await processing(result, 0)
+  const processed = await processing(result, 0, 25)
   if (!processed) {
     throw new Error(`failed to execute add-prices`)
   }
@@ -208,7 +208,7 @@ export async function revokeSource(source) {
     console.log(result.reason)
     throw new Error(`transaction failed`)
   }
-  const processed = await processing(result, 0)
+  const processed = await processing(result, 0, 25)
   if (!processed) {
     throw new Error(`failed to execute add-prices`)
   }

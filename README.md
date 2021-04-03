@@ -74,7 +74,7 @@ Will probably add a CoinGecko feed next with STX, STX-BTC, CoinMarketCap does no
 
 Suggestions welcome!
 
-If you'd like to contribute, open a PR, and small STX donations are welcome to `SPZ0RAC1EFTH949T4W2SYY6YBHJRMAF4ECT5A7DD` to help pay for keeping the feed alive (unless I figure out a way to use microblocks, at the current block frequency, it will cost less than 1 STX per day, at least I think)
+If you'd like to contribute, open a PR, and small STX donations are welcome to `SPZ0RAC1EFTH949T4W2SYY6YBHJRMAF4ECT5A7DD` to help pay for keeping the feed alive (unless I figure out a way to use microblocks), at the current block frequency, it will cost less than 1 STX per day, at least I think, for 14 data points, 26 overflows the block, which is an other topic for an other day)
 
 ## Credits
 Extra credits to @jcnelson for sharing an approach to manipulate buffers (https://gist.github.com/jcnelson/76c44b4209c29a19d2dbc06a0e7b446e)

@@ -16,18 +16,18 @@ export async function retrieveBinanceFeed() {
   const timestamp = Math.floor(Date.now() / 1000)
 
   const filter = {
-    'ETHBTC': {
-      symbol: 'ETH-BTC',
-      decimals: 100_000_000,
-    },
-    'LINKBTC': {
-      symbol: 'LINK-BTC',
-      decimals: 100_000_000,
-    },
-    'LINKETH': {
-      symbol: 'LINK-ETH',
-      decimals: 1_000_000_000_000_000_000,
-    },
+    // 'ETHBTC': {
+    //   symbol: 'ETH-BTC',
+    //   decimals: 100_000_000,
+    // },
+    // 'LINKBTC': {
+    //   symbol: 'LINK-BTC',
+    //   decimals: 100_000_000,
+    // },
+    // 'LINKETH': {
+    //   symbol: 'LINK-ETH',
+    //   decimals: 1_000_000_000_000_000_000,
+    // },
     'STXBTC': {
       symbol: 'STX-BTC',
       decimals: 100_000_000,
@@ -36,26 +36,26 @@ export async function retrieveBinanceFeed() {
       symbol: 'STX-USDT',
       decimals: 1_000_000,
     },
-    'COMPBTC': {
-      symbol: 'COMP-BTC',
-      decimals: 100_000_000,
-    },
-    'LTCBTC': {
-      symbol: 'LTC-BTC',
-      decimals: 100_000_000,
-    },
+    // 'COMPBTC': {
+    //   symbol: 'COMP-BTC',
+    //   decimals: 100_000_000,
+    // },
+    // 'LTCBTC': {
+    //   symbol: 'LTC-BTC',
+    //   decimals: 100_000_000,
+    // },
     'UNIBTC': {
       symbol: 'UNI-BTC',
       decimals: 100_000_000,
     },
-    'AAVEBTC': {
-      symbol: 'AAVE-BTC',
-      decimals: 100_000_000,
-    },
-    'SUSHIBTC': {
-      symbol: 'SUSHI-BTC',
-      decimals: 100_000_000,
-    },
+    // 'AAVEBTC': {
+    //   symbol: 'AAVE-BTC',
+    //   decimals: 100_000_000,
+    // },
+    // 'SUSHIBTC': {
+    //   symbol: 'SUSHI-BTC',
+    //   decimals: 100_000_000,
+    // },
   }
 
   const feed = []

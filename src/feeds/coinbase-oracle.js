@@ -10,7 +10,14 @@ import {
   COINBASE_PASSPHRASE,
 } from '../config.js'
 
-const filter = ['BTC', 'ETH', 'LINK', 'COMP', 'UNI', 'SNX']
+const filter = [
+  'BTC',
+  'ETH',
+  // 'LINK',
+  // 'COMP',
+  'UNI',
+  'SNX',
+]
 
 const client = new Client({
   'apiKey': COINBASE_KEY,

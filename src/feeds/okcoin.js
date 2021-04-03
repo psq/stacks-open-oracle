@@ -102,10 +102,10 @@ export async function retrieveOKCoinFeed() {
       symbol: 'ETH',
       decimals: 1_000_000,
     },
-    'LINK-USD': {
-      symbol: 'LINK',
-      decimals: 1_000_000,
-    },
+    // 'LINK-USD': {
+    //   symbol: 'LINK',
+    //   decimals: 1_000_000,
+    // },
     'STX-BTC': {
       symbol: 'STX-BTC',
       decimals: 100_000_000,
@@ -114,14 +114,14 @@ export async function retrieveOKCoinFeed() {
       symbol: 'STX',
       decimals: 1_000_000,
     },
-    'COMP-USD': {
-      symbol: 'COMP',
-      decimals: 1_000_000,
-    },
-    'LTC-USD': {
-      symbol: 'LTC',
-      decimals: 1_000_000,
-    },
+    // // 'COMP-USD': {
+    // //   symbol: 'COMP',
+    // //   decimals: 1_000_000,
+    // // },
+    // 'LTC-USD': {
+    //   symbol: 'LTC',
+    //   decimals: 1_000_000,
+    // },
     'UNI-USD': {
       symbol: 'UNI',
       decimals: 1_000_000,
