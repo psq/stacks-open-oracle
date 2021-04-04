@@ -18,8 +18,9 @@ const past_data = JSON.parse(past_data_json)
 
 let nonce = await getNonce()
 console.log("nonce", nonce, "past_data.nonce", past_data.nonce)
-while (nonce !== past_data.nonce) {
-  await timeout(1000 * 60 * 2)
+
+while (nonce < past_data.nonce) {
+  await timeout(1000 * 60)  // 1 minute
   nonce = await getNonce()
 }
 
@@ -39,9 +40,11 @@ while (true) {
   }, null, 2))
 
   let next_nonce = await getNonce()
-  while (next_nonce === nonce) {
+
+  // TODO(psq): check for > instead, caching can be bad with this LB
+  while (next_nonce <= nonce) {
     console.log("next_nonce", next_nonce, "nonce", nonce)
-    await timeout(1000 * 60 * 2)
+    await timeout(1000 * 60)  // 1 minute
     next_nonce = await getNonce()
   }
   nonce = next_nonce
