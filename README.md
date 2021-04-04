@@ -55,6 +55,9 @@ Public key: `0x02752f4db204f7cdf6e022dc486af2572579bc9a0fe7c769b58d95f4223426936
 Call `get-price` with `source` and `symbol`, for example:
 ```
 (get-price "coinbase" "BTC")
+
+(contract-call? 'SPZ0RAC1EFTH949T4W2SYY6YBHJRMAF4ECT5A7DD.oracle-v1 get-price "coinbase" "BTC")
+
 ```
 to get the latest price for BTC (in USD) from the Coinbase feed
 
