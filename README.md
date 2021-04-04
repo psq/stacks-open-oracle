@@ -72,6 +72,8 @@ I would hope more people will participate and upload their own feeds, and we can
 
 Will probably add a CoinGecko feed next with STX, STX-BTC, CoinMarketCap does not seem worth the expense (unless scraping...)
 
+The current implementation does not play very well with how Clarity calculates some of the buffer function runtime costs, so the 14 values currently being uploaded do take up over 50% of the block runtime budget, which is is quite unfortunate and would prevent scaling the current implementation.  Hopefully, the contract can be refactored to not burn through that much of the runtime budget.  Stay tuned...
+
 Suggestions welcome!
 
 If you'd like to contribute, open a PR, and small STX donations are welcome to `SPZ0RAC1EFTH949T4W2SYY6YBHJRMAF4ECT5A7DD` to help pay for keeping the feed alive (unless I figure out a way to use microblocks), at the current block frequency, it will cost less than 1 STX per day, at least I think, for 14 data points, 26 overflows the block, which is an other topic for an other day)
