@@ -40,8 +40,10 @@ import {
 const network = MODE === 'mainnet' ? new StacksMainnet() : MODE === 'testnet' ? new StacksTestnet() : new StacksMocknet()
 network.coreApiUrl = STACKS_API_URL  // Is this needed except in case of custom node?
 
+console.log("=========================================================")
 console.log("mode", MODE)
 console.log("api", STACKS_API_URL)
+console.log("=========================================================")
 
 export async function deployContract(contract_file) {
   console.log(`deploying ${CONTRACT_NAME}`, ORACLE_PK, ORACLE_STX)
